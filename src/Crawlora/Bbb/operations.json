@@ -1,0 +1,519 @@
+{
+  "platform": "bbb",
+  "operationCount": 9,
+  "operationIds": [
+    "bbb-business",
+    "bbb-business-complaints",
+    "bbb-business-more-info",
+    "bbb-business-reviews",
+    "bbb-category",
+    "bbb-scamtracker-detail",
+    "bbb-scamtracker-search",
+    "bbb-scamtracker-state-stats",
+    "bbb-search"
+  ],
+  "methods": {
+    "business": "bbb-business",
+    "business_complaints": "bbb-business-complaints",
+    "business_more_info": "bbb-business-more-info",
+    "business_reviews": "bbb-business-reviews",
+    "category": "bbb-category",
+    "scamtracker_search": "bbb-scamtracker-search",
+    "scamtracker_state_stats": "bbb-scamtracker-state-stats",
+    "scamtracker_detail": "bbb-scamtracker-detail",
+    "search": "bbb-search"
+  },
+  "operations": {
+    "bbb-business": {
+      "id": "bbb-business",
+      "method": "GET",
+      "path": "/bbb/business",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "BBB business profile URL, from a bbb-search result's url or hq_profile_url",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/tx/austin/profile/plumber/calixto-plumbing-0825-1000223803"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-business-complaints": {
+      "id": "bbb-business-complaints",
+      "method": "GET",
+      "path": "/bbb/business/complaints",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "BBB business profile URL, from a bbb-search result's url or hq_profile_url",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/tx/austin/profile/plumber/calixto-plumbing-0825-1000223803"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-business-more-info": {
+      "id": "bbb-business-more-info",
+      "method": "GET",
+      "path": "/bbb/business/more-info",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "BBB business profile URL, from a bbb-search result's url or hq_profile_url",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/tx/austin/profile/plumber/calixto-plumbing-0825-1000223803"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-business-reviews": {
+      "id": "bbb-business-reviews",
+      "method": "GET",
+      "path": "/bbb/business/reviews",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "params": [
+        {
+          "description": "BBB business profile URL, from a bbb-search result's url or hq_profile_url",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/tx/austin/profile/plumber/calixto-plumbing-0825-1000223803"
+        },
+        {
+          "description": "Result page (10 per page), default 1",
+          "in": "query",
+          "name": "page",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-category": {
+      "id": "bbb-category",
+      "method": "GET",
+      "path": "/bbb/category",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "params": [
+        {
+          "description": "BBB category browse URL, from a bbb-search result's related_categories",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/tx/austin/category/plumber"
+        },
+        {
+          "description": "Result page, default 1",
+          "in": "query",
+          "name": "page",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-scamtracker-search": {
+      "id": "bbb-scamtracker-search",
+      "method": "GET",
+      "path": "/bbb/scamtracker/search",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "query",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "scam_type",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "Advance Fee Loan",
+            "Bank/Credit Card Company Imposter",
+            "Business Email Compromise",
+            "Charity",
+            "Counterfeit Product",
+            "COVID-19",
+            "Credit Cards",
+            "Credit Repair/Debt Relief",
+            "CryptoCurrency",
+            "Debt Collections",
+            "Employment",
+            "Fake Check/Money Order",
+            "Fake Invoice/Supplier Bill",
+            "Family/Friend Emergency",
+            "Foreign Money Exchange",
+            "Government Agency Imposter",
+            "Government Grant",
+            "Healthcare/Medicaid/Medicare",
+            "Home Improvement",
+            "Identity Theft",
+            "Investment",
+            "Moving",
+            "Online Purchase",
+            "Other",
+            "Phishing",
+            "Rental",
+            "Retail Business",
+            "Romance",
+            "Scholarship",
+            "Sweepstakes/Lottery/Prizes",
+            "Tax Collection",
+            "Tech Support",
+            "Travel/Vacation/Timeshare",
+            "Utility",
+            "Vanity Award",
+            "Worthless Problem-solving Service",
+            "Yellow Pages/Directories"
+          ]
+        },
+        {
+          "name": "state",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "scammer_state",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "date_from",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "date_to",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "min_dollars_lost",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "max_dollars_lost",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "params": [
+        {
+          "description": "Free-text search (phone number, website, email, business name, scam ID, description). Omit to browse the most-recent feed",
+          "in": "query",
+          "name": "query",
+          "type": "string",
+          "x-example": "amazon"
+        },
+        {
+          "description": "Scam category filter",
+          "enum": [
+            "Advance Fee Loan",
+            "Bank/Credit Card Company Imposter",
+            "Business Email Compromise",
+            "Charity",
+            "Counterfeit Product",
+            "COVID-19",
+            "Credit Cards",
+            "Credit Repair/Debt Relief",
+            "CryptoCurrency",
+            "Debt Collections",
+            "Employment",
+            "Fake Check/Money Order",
+            "Fake Invoice/Supplier Bill",
+            "Family/Friend Emergency",
+            "Foreign Money Exchange",
+            "Government Agency Imposter",
+            "Government Grant",
+            "Healthcare/Medicaid/Medicare",
+            "Home Improvement",
+            "Identity Theft",
+            "Investment",
+            "Moving",
+            "Online Purchase",
+            "Other",
+            "Phishing",
+            "Rental",
+            "Retail Business",
+            "Romance",
+            "Scholarship",
+            "Sweepstakes/Lottery/Prizes",
+            "Tax Collection",
+            "Tech Support",
+            "Travel/Vacation/Timeshare",
+            "Utility",
+            "Vanity Award",
+            "Worthless Problem-solving Service",
+            "Yellow Pages/Directories"
+          ],
+          "in": "query",
+          "name": "scam_type",
+          "type": "string"
+        },
+        {
+          "description": "Optional 2-letter targeted-victim state/province code (US state or Canadian province)",
+          "in": "query",
+          "name": "state",
+          "type": "string",
+          "x-example": "TX"
+        },
+        {
+          "description": "Optional 2-letter reported-scammer state/province code (US state or Canadian province) -- where the scammer is reported to be, not the victim",
+          "in": "query",
+          "name": "scammer_state",
+          "type": "string",
+          "x-example": "NY"
+        },
+        {
+          "description": "Optional report-date range start (YYYY-MM-DD), inclusive. Must be set together with date_to",
+          "in": "query",
+          "name": "date_from",
+          "type": "string",
+          "x-example": "2026-01-01"
+        },
+        {
+          "description": "Optional report-date range end (YYYY-MM-DD), inclusive. Must be set together with date_from",
+          "in": "query",
+          "name": "date_to",
+          "type": "string",
+          "x-example": "2026-01-31"
+        },
+        {
+          "description": "Optional minimum reported dollar loss. Must be set together with max_dollars_lost",
+          "in": "query",
+          "name": "min_dollars_lost",
+          "type": "integer",
+          "x-example": 500000
+        },
+        {
+          "description": "Optional maximum reported dollar loss. Must be set together with min_dollars_lost",
+          "in": "query",
+          "name": "max_dollars_lost",
+          "type": "integer",
+          "x-example": 1000000
+        },
+        {
+          "description": "Result page (10 per page), default 1",
+          "in": "query",
+          "name": "page",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-scamtracker-state-stats": {
+      "id": "bbb-scamtracker-state-stats",
+      "method": "GET",
+      "path": "/bbb/scamtracker/state-stats",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "period",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "30",
+            "90",
+            "365",
+            "all"
+          ]
+        }
+      ],
+      "params": [
+        {
+          "description": "Aggregation window, default 90",
+          "enum": [
+            "30",
+            "90",
+            "365",
+            "all"
+          ],
+          "in": "query",
+          "name": "period",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-scamtracker-detail": {
+      "id": "bbb-scamtracker-detail",
+      "method": "GET",
+      "path": "/bbb/scamtracker/{id}",
+      "pathParams": [
+        "id"
+      ],
+      "queryParams": [],
+      "params": [
+        {
+          "description": "BBB Scam Tracker report id, from a bbb-scamtracker-search result's id or url",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "x-example": "1397968"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-search": {
+      "id": "bbb-search",
+      "method": "GET",
+      "path": "/bbb/search",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "query",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "location",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "params": [
+        {
+          "description": "Business name or category/service keyword",
+          "in": "query",
+          "name": "query",
+          "required": true,
+          "type": "string",
+          "x-example": "plumber"
+        },
+        {
+          "description": "City and state (e.g. 'Austin, TX') or a ZIP code",
+          "in": "query",
+          "name": "location",
+          "required": true,
+          "type": "string",
+          "x-example": "Austin, TX"
+        },
+        {
+          "description": "Result page, default 1",
+          "in": "query",
+          "name": "page",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    }
+  }
+}
