@@ -1,29 +1,73 @@
 {
   "platform": "bbb",
-  "operationCount": 9,
+  "operationCount": 16,
   "operationIds": [
+    "bbb-article",
     "bbb-business",
     "bbb-business-complaints",
     "bbb-business-more-info",
     "bbb-business-reviews",
     "bbb-category",
+    "bbb-local-bbb",
+    "bbb-local-bbbs",
+    "bbb-news",
+    "bbb-news-topics",
+    "bbb-regions",
     "bbb-scamtracker-detail",
     "bbb-scamtracker-search",
     "bbb-scamtracker-state-stats",
-    "bbb-search"
+    "bbb-search",
+    "bbb-search-filters"
   ],
   "methods": {
+    "article": "bbb-article",
     "business": "bbb-business",
     "business_complaints": "bbb-business-complaints",
     "business_more_info": "bbb-business-more-info",
     "business_reviews": "bbb-business-reviews",
     "category": "bbb-category",
+    "local_bbb": "bbb-local-bbb",
+    "local_bbbs": "bbb-local-bbbs",
+    "news": "bbb-news",
+    "news_topics": "bbb-news-topics",
+    "regions": "bbb-regions",
     "scamtracker_search": "bbb-scamtracker-search",
     "scamtracker_state_stats": "bbb-scamtracker-state-stats",
     "scamtracker_detail": "bbb-scamtracker-detail",
-    "search": "bbb-search"
+    "search": "bbb-search",
+    "search_filters": "bbb-search-filters"
   },
   "operations": {
+    "bbb-article": {
+      "id": "bbb-article",
+      "method": "GET",
+      "path": "/bbb/article",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "Canonical BBB article URL",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/article/news-releases/34935-bbb-scam-alert-dont-be-fooled-by-free-gas-and-grocery-card-postcards"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
     "bbb-business": {
       "id": "bbb-business",
       "method": "GET",
@@ -171,6 +215,70 @@
           "name": "page",
           "in": "query",
           "type": "integer"
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "Relevance",
+            "Distance",
+            "Rating",
+            "AToZ",
+            "ZToA"
+          ]
+        },
+        {
+          "name": "distance",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "5",
+            "10",
+            "25",
+            "50",
+            "100"
+          ]
+        },
+        {
+          "name": "rating",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "F"
+          ]
+        },
+        {
+          "name": "category_id",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array"
+        },
+        {
+          "name": "state",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array"
+        },
+        {
+          "name": "accredited",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "get_quote",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "service_area",
+          "in": "query",
+          "type": "boolean"
         }
       ],
       "params": [
@@ -187,8 +295,245 @@
           "in": "query",
           "name": "page",
           "type": "integer"
+        },
+        {
+          "description": "Sort order",
+          "enum": [
+            "Relevance",
+            "Distance",
+            "Rating",
+            "AToZ",
+            "ZToA"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Maximum distance in miles; omit for all distances",
+          "enum": [
+            "5",
+            "10",
+            "25",
+            "50",
+            "100"
+          ],
+          "in": "query",
+          "name": "distance",
+          "type": "string"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "One or more BBB rating buckets",
+          "in": "query",
+          "items": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "F"
+            ],
+            "type": "string"
+          },
+          "name": "rating",
+          "type": "array"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Query-scoped category ID from bbb-search-filters",
+          "in": "query",
+          "items": {
+            "type": "string"
+          },
+          "name": "category_id",
+          "type": "array"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Query-scoped state or province code from bbb-search-filters",
+          "in": "query",
+          "items": {
+            "type": "string"
+          },
+          "name": "state",
+          "type": "array"
+        },
+        {
+          "description": "Only BBB-accredited businesses",
+          "in": "query",
+          "name": "accredited",
+          "type": "boolean"
+        },
+        {
+          "description": "Only businesses offering quote requests",
+          "in": "query",
+          "name": "get_quote",
+          "type": "boolean"
+        },
+        {
+          "description": "Only businesses serving the searched area",
+          "in": "query",
+          "name": "service_area",
+          "type": "boolean"
         }
       ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-local-bbb": {
+      "id": "bbb-local-bbb",
+      "method": "GET",
+      "path": "/bbb/local-bbb",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "Canonical BBB chapter URL from bbb-local-bbbs or a business record's local_bbb_url",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/local-bbb/bbb-serving-the-heart-of-texas"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-local-bbbs": {
+      "id": "bbb-local-bbbs",
+      "method": "GET",
+      "path": "/bbb/local-bbbs",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "country",
+          "in": "query",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "us",
+            "ca"
+          ]
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "Country code from bbb-regions",
+          "enum": [
+            "us",
+            "ca"
+          ],
+          "in": "query",
+          "name": "country",
+          "required": true,
+          "type": "string",
+          "x-example": "us"
+        },
+        {
+          "description": "Two-letter region code from bbb-regions",
+          "in": "query",
+          "name": "region",
+          "required": true,
+          "type": "string",
+          "x-example": "tx"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-news": {
+      "id": "bbb-news",
+      "method": "GET",
+      "path": "/bbb/news",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "Canonical BBB newsroom or topic page URL; include page=N for pagination",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/news/scams?page=2"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-news-topics": {
+      "id": "bbb-news-topics",
+      "method": "GET",
+      "path": "/bbb/news/topics",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "params": [
+        {
+          "description": "Canonical BBB newsroom page URL",
+          "in": "query",
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/news"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-regions": {
+      "id": "bbb-regions",
+      "method": "GET",
+      "path": "/bbb/regions",
+      "pathParams": [],
+      "queryParams": [],
+      "params": [],
       "produces": [
         "application/json"
       ],
@@ -482,6 +827,79 @@
           "name": "page",
           "in": "query",
           "type": "integer"
+        },
+        {
+          "name": "country",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "USA",
+            "CAN"
+          ]
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "Relevance",
+            "Distance",
+            "Rating",
+            "AToZ",
+            "ZToA"
+          ]
+        },
+        {
+          "name": "distance",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "5",
+            "10",
+            "25",
+            "50",
+            "100"
+          ]
+        },
+        {
+          "name": "rating",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "F"
+          ]
+        },
+        {
+          "name": "category_id",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array"
+        },
+        {
+          "name": "state",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array"
+        },
+        {
+          "name": "accredited",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "get_quote",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "service_area",
+          "in": "query",
+          "type": "boolean"
         }
       ],
       "params": [
@@ -506,6 +924,326 @@
           "in": "query",
           "name": "page",
           "type": "integer"
+        },
+        {
+          "default": "USA",
+          "description": "BBB country code",
+          "enum": [
+            "USA",
+            "CAN"
+          ],
+          "in": "query",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "description": "Sort order",
+          "enum": [
+            "Relevance",
+            "Distance",
+            "Rating",
+            "AToZ",
+            "ZToA"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Maximum distance in miles; omit for all distances",
+          "enum": [
+            "5",
+            "10",
+            "25",
+            "50",
+            "100"
+          ],
+          "in": "query",
+          "name": "distance",
+          "type": "string"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "One or more BBB rating buckets",
+          "in": "query",
+          "items": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "F"
+            ],
+            "type": "string"
+          },
+          "name": "rating",
+          "type": "array"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Query-scoped category ID from bbb-search-filters",
+          "in": "query",
+          "items": {
+            "type": "string"
+          },
+          "name": "category_id",
+          "type": "array"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Query-scoped state or province code from bbb-search-filters",
+          "in": "query",
+          "items": {
+            "type": "string"
+          },
+          "name": "state",
+          "type": "array"
+        },
+        {
+          "description": "Only BBB-accredited businesses",
+          "in": "query",
+          "name": "accredited",
+          "type": "boolean"
+        },
+        {
+          "description": "Only businesses offering quote requests",
+          "in": "query",
+          "name": "get_quote",
+          "type": "boolean"
+        },
+        {
+          "description": "Only businesses serving the searched area",
+          "in": "query",
+          "name": "service_area",
+          "type": "boolean"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "bbb-search-filters": {
+      "id": "bbb-search-filters",
+      "method": "GET",
+      "path": "/bbb/search/filters",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "query",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "category_url",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "country",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "USA",
+            "CAN"
+          ]
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "Relevance",
+            "Distance",
+            "Rating",
+            "AToZ",
+            "ZToA"
+          ]
+        },
+        {
+          "name": "distance",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "5",
+            "10",
+            "25",
+            "50",
+            "100"
+          ]
+        },
+        {
+          "name": "rating",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "F"
+          ]
+        },
+        {
+          "name": "category_id",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array"
+        },
+        {
+          "name": "state",
+          "in": "query",
+          "collectionFormat": "multi",
+          "type": "array"
+        },
+        {
+          "name": "accredited",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "get_quote",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "service_area",
+          "in": "query",
+          "type": "boolean"
+        }
+      ],
+      "params": [
+        {
+          "description": "Business name or category/service keyword; use with location when category_url is omitted",
+          "in": "query",
+          "name": "query",
+          "type": "string",
+          "x-example": "plumber"
+        },
+        {
+          "description": "City and state/province or ZIP code; use with query when category_url is omitted",
+          "in": "query",
+          "name": "location",
+          "type": "string",
+          "x-example": "Austin, TX"
+        },
+        {
+          "description": "BBB category browse URL; use instead of query and location",
+          "in": "query",
+          "name": "category_url",
+          "type": "string",
+          "x-example": "https://www.bbb.org/us/tx/austin/category/plumber"
+        },
+        {
+          "default": "USA",
+          "description": "BBB country code",
+          "enum": [
+            "USA",
+            "CAN"
+          ],
+          "in": "query",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "description": "Result page, default 1",
+          "in": "query",
+          "name": "page",
+          "type": "integer"
+        },
+        {
+          "description": "Sort order",
+          "enum": [
+            "Relevance",
+            "Distance",
+            "Rating",
+            "AToZ",
+            "ZToA"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Maximum distance in miles; omit for all distances",
+          "enum": [
+            "5",
+            "10",
+            "25",
+            "50",
+            "100"
+          ],
+          "in": "query",
+          "name": "distance",
+          "type": "string"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Selected rating values",
+          "in": "query",
+          "items": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "F"
+            ],
+            "type": "string"
+          },
+          "name": "rating",
+          "type": "array"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Selected category IDs previously returned for this search context",
+          "in": "query",
+          "items": {
+            "type": "string"
+          },
+          "name": "category_id",
+          "type": "array"
+        },
+        {
+          "collectionFormat": "multi",
+          "description": "Selected state/province codes previously returned for this search context",
+          "in": "query",
+          "items": {
+            "type": "string"
+          },
+          "name": "state",
+          "type": "array"
+        },
+        {
+          "description": "Only BBB-accredited businesses",
+          "in": "query",
+          "name": "accredited",
+          "type": "boolean"
+        },
+        {
+          "description": "Only businesses offering quote requests",
+          "in": "query",
+          "name": "get_quote",
+          "type": "boolean"
+        },
+        {
+          "description": "Only businesses serving the searched area",
+          "in": "query",
+          "name": "service_area",
+          "type": "boolean"
         }
       ],
       "produces": [

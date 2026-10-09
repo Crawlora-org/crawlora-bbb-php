@@ -23,7 +23,7 @@ if (count($calls) !== 1 || !str_contains($calls[0][0], '/bbb/')) {
 if (!in_array('x-api-key: test-key', $calls[0][1], true)) {
     throw new RuntimeException('The API key header was not sent.');
 }
-if ($client->operationCount() !== 9) {
+if ($client->operationCount() !== 16) {
     throw new RuntimeException('The operation count did not match the generated contract.');
 }
 $defaultClient = new Crawlora\Bbb\Client(
