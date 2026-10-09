@@ -21,8 +21,9 @@
   "scripts": {
     "test": "php tests/client_test.php"
   },
-  "homepage": "https://github.com/Crawlora-org/crawlora-bbb",
+  "homepage": "https://crawlora.net/?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=bbb-php-homepage",
   "support": {
-    "source": "https://github.com/Crawlora-org/crawlora-bbb"
+    "source": "https://github.com/Crawlora-org/crawlora-bbb",
+    "docs": "https://crawlora.net/docs?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=bbb-php-api-docs"
   }
 }
