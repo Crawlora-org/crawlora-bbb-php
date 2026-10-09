@@ -26,7 +26,7 @@ final class Client
     private ?\Closure $transport;
 
     public const PLATFORM = 'bbb';
-    public const VERSION = '0.1.1';
+    public const VERSION = '0.1.2';
     public const OPERATION_COUNT = 9;
     public const OPERATION_IDS = ["bbb-business", "bbb-business-complaints", "bbb-business-more-info", "bbb-business-reviews", "bbb-category", "bbb-scamtracker-detail", "bbb-scamtracker-search", "bbb-scamtracker-state-stats", "bbb-search"];
 
@@ -56,7 +56,7 @@ JSON, true, 512, JSON_THROW_ON_ERROR);
         $url = $this->buildUrl($operation, $params);
         $headers = [
             'x-api-key: ' . $this->apiKey,
-            'User-Agent: crawlora-bbb-php/0.1.1',
+            'User-Agent: crawlora-bbb-php/0.1.2',
             'Accept: ' . (in_array('text/plain', $operation['produces'], true) ? 'application/json, text/plain' : 'application/json'),
         ];
         try {
